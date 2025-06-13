@@ -1,13 +1,14 @@
-/* jep.js - JavaScript Email Protection (JEP) */
-
 function jep_link(domain, user) {
-    // Create email string
-    let email = `${user}@${domain}`;
-    
-    // Obfuscate each character using HTML entity codes
-    let encodedEmail = "";
-    let encode = str => [...str].map(c => `&#${c.charCodeAt(0)};`).join('');
+    const email = `${user}@${domain}`;
+    const mailto = `mailto:${email}`;
 
-    // Insert the obfuscated email link into the DOM
-    document.write(`<a href="${encode(mailto)}">${encode(email)}</a>`);
+    const encode = str => [...str].map(c => `&#${c.charCodeAt(0)};`).join('');
+
+    const a = document.createElement("a");
+    a.setAttribute("href", encode(mailto));
+    a.innerHTML = encode(email);
+
+    // Append to a target container (like the calling script's parent)
+    const scriptEl = document.currentScript;
+    scriptEl.parentNode.insertBefore(a, scriptEl.nextSibling);
 }
