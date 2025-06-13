@@ -6,10 +6,8 @@ function jep_link(domain, user) {
     
     // Obfuscate each character using HTML entity codes
     let encodedEmail = "";
-    for (let i = 0; i < email.length; i++) {
-        encodedEmail += `&#${email.charCodeAt(i)};`;
-    }
+    let encode = str => [...str].map(c => `&#${c.charCodeAt(0)};`).join('');
 
     // Insert the obfuscated email link into the DOM
-    document.write(`<a href="mailto:${email}">${encodedEmail}</a>`);
+    document.write(`<a href="${encode(mailto)}">${encode(email)}</a>`);
 }
